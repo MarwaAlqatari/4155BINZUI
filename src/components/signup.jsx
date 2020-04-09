@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 import { render } from "@testing-library/react";
 
 export default class SignUp extends Component {
@@ -26,10 +27,68 @@ export default class SignUp extends Component {
     });
   }
 
+  async onSubmit(e) {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("email", this.state.email);
+    formData.append("password", this.state.password);
+
+    console.log("Form submitted:");
+    console.log(`Email: ${this.state.email}`);
+    console.log(`Password: ${this.state.password}`);
+
+    const response = await axios.post(
+      "http://localhost:8080/signup",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      }
+    );
+
+    console.log(response.data);
+
+    this.setState({
+      email: "",
+      password: ""
+    });
+  }
+
   render() {
     return (
-      <div>
-        <p>Sign Up</p>
+      <div style={{ marginTop: 20 }}>
+        <h3>Sign Up</h3>
+        <form onSubmit={this.onSubmit}>
+          <div className="form-group">
+            <label>Email: </label>
+            <input
+              type="text"
+              className="form-control"
+              value={this.state.email}
+              onChange={this.onChangeEmail}
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Password: </label>
+            <input
+              type="text"
+              className="form-control"
+              value={this.state.password}
+              onChange={this.onChangePassword}
+            />
+          </div>
+
+          <div className="form-group">
+            <input
+              type="submit"
+              value="Sign Up"
+              className="btn btn-primary"
+            />
+          </div>
+
+        </form>
       </div>
     );
   }
