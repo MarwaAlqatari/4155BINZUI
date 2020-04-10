@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { createCipher } from "crypto";
 
-export default class Create extends Component {
+export default class Edit extends Component {
   constructor(props) {
     super(props);
     this.onChangeName = this.onChangeName.bind(this);
@@ -127,7 +128,7 @@ export default class Create extends Component {
     console.log(`File: ${this.state.file}`);
     console.log(`File Name: ${this.state.fileName}`);
 
-    const response = await axios.post(
+    const response = await axios.put(
       "http://localhost:8080/listings",
       formData,
       {
@@ -140,19 +141,19 @@ export default class Create extends Component {
     console.log(response.data);
 
     this.setState({
-      name: "",
-      phone: 0,
-      email: "",
-      duration: "",
-      rentPerMonth: 0,
-      location: "",
-      pets: false,
-      furnished: false,
-      startDate: "",
-      endDate: "",
-      comments: "",
-      file: "",
-      fileName: ""
+      name: this.state.name,
+      phone: this.state.phone,
+      email: this.state.email,
+      duration: this.state.duration,
+      rentPerMonth: this.state.rentPerMonth,
+      location: this.state.location,
+      pets: this.state.pets,
+      furnished: this.state.furnished,
+      startDate: this.state.startDate,
+      endDate: this.state.endDate,
+      comments: this.state.comments,
+      file: this.state.file,
+      fileName: this.state.fileName
     });
   }
   render() {
@@ -317,12 +318,11 @@ export default class Create extends Component {
           </div>
 
           <div className="form-group">
-            <button
-              onClick={this.onNavigateListings}
+            <input
+              type="submit"
+              calue="Update Listing"
               className="btn btn-primary"
-            >
-              Submit
-            </button>
+            />
           </div>
         </form>
       </div>

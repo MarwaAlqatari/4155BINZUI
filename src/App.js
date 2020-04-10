@@ -12,6 +12,7 @@ import SignIn from "./components/signin";
 import SignUp from "./components/signup";
 import Listings from "./components/listings";
 import Create from "./components/create";
+import Edit from "./components/edit";
 import logo from "./logo.png";
 
 class App extends Component {
@@ -72,6 +73,7 @@ class App extends Component {
           <Route path="/signup" component={SignUp} />
           <Route path="/listings" component={Listings} />
           <Route path="/create" component={Create} />
+          <Route path="/edit" component={Edit} />
         </div>
       </Router>
     );
