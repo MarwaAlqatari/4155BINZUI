@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Route,
   Link,
-  IndexRoute
+  IndexRoute,
 } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Home from "./components/home";
@@ -27,8 +27,8 @@ class App extends Component {
             >
               <img
                 src={logo}
-                width="30"
-                height="30"
+                width="200"
+                height="200"
                 alt="CodingTheSmartWay.com"
               />
             </a>
@@ -65,7 +65,7 @@ class App extends Component {
               </ul>
             </div>
           </nav>
-          <h2>MERN Stack App</h2>
+          <h2></h2>
           <Route path="/" exact component={Home} />
           <Route path="/about" component={About} />
           <Route path="/signin" component={SignIn} />
