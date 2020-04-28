@@ -38,7 +38,7 @@ export default class SignUp extends Component {
     console.log(`Password: ${this.state.password}`);
 
     const response = await axios.post(
-      "http://localhost:8080/signup",
+      "http://localhost:8080/users",
       formData,
       {
         headers: {

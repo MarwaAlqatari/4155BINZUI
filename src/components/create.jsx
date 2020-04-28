@@ -118,11 +118,11 @@ export default class Create extends Component {
     console.log(`Email: ${this.state.email}`);
     console.log(`Duration: ${this.state.duration}`);
     console.log(`Rent Per Month: ${this.state.rent}`);
-    console.log(`Location: ${this.state.ocation}`);
+    console.log(`Location: ${this.state.location}`);
     console.log(`Peys: ${this.state.pets}`);
     console.log(`Furnished: ${this.state.furnished}`);
-    console.log(`Start Date: ${this.state.tartdate}`);
-    console.log(`End Date: ${this.state.enddate}`);
+    console.log(`Start Date: ${this.state.startDate}`);
+    console.log(`End Date: ${this.state.endDate}`);
     console.log(`Comments: ${this.state.comments}`);
     console.log(`File: ${this.state.file}`);
     console.log(`File Name: ${this.state.fileName}`);

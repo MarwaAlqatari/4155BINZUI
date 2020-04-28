@@ -16,6 +16,9 @@ import Edit from "./components/edit";
 import logo from "./logo.png";
 
 class App extends Component {
+
+  
+
   render() {
     return (
       <Router>
@@ -49,12 +52,12 @@ class App extends Component {
                   </Link>
                 </li>
                 <li className="navbar-item">
-                  <Link to="/signin" className="nav-link">
+                  <Link to="/users/signin" className="nav-link">
                     Sign In
                   </Link>
                 </li>
                 <li className="navbar-item">
-                  <Link to="/signup" className="nav-link">
+                  <Link to="users/signup" className="nav-link">
                     Sign Up
                   </Link>
                 </li>
@@ -69,8 +72,8 @@ class App extends Component {
           <h2></h2>
           <Route path="/" exact component={Home} />
           <Route path="/about" component={About} />
-          <Route path="/signin" component={SignIn} />
-          <Route path="/signup" component={SignUp} />
+          <Route path="/users/signin" component={SignIn} />
+          <Route path="/users/signup" component={SignUp} />
           <Route path="/listings" component={Listings} />
           <Route path="/create" component={Create} />
           <Route path="/edit" component={Edit} />
