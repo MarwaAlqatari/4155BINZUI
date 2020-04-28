@@ -8,6 +8,7 @@ export default class SignUp extends Component {
     super(props);
     this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
       email: "",
@@ -81,11 +82,12 @@ export default class SignUp extends Component {
           </div>
 
           <div className="form-group">
-            <input
-              type="submit"
-              value="Sign Up"
+          <button
+              onClick={this.onNavigateListings}
               className="btn btn-primary"
-            />
+            >
+              Submit
+            </button>
           </div>
 
         </form>

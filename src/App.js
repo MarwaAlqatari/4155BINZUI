@@ -57,7 +57,7 @@ class App extends Component {
                   </Link>
                 </li>
                 <li className="navbar-item">
-                  <Link to="users/signup" className="nav-link">
+                  <Link to="/users/signup" className="nav-link">
                     Sign Up
                   </Link>
                 </li>
