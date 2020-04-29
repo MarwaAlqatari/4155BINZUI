@@ -103,7 +103,7 @@ export default class Create extends Component {
     formData.append("phone", this.state.phone);
     formData.append("email", this.state.email);
     formData.append("duration", this.state.duration);
-    formData.append("rentPerMonth", this.state.rentPerMonth);
+    formData.append("rentPerMonth", this.state.rent);
     formData.append("location", this.state.location);
     formData.append("pets", this.state.pets === "Yes" ? true : false);
     formData.append("furnished", this.state.furnished === "Yes" ? true : false);
@@ -121,8 +121,8 @@ export default class Create extends Component {
     console.log(`Location: ${this.state.ocation}`);
     console.log(`Peys: ${this.state.pets}`);
     console.log(`Furnished: ${this.state.furnished}`);
-    console.log(`Start Date: ${this.state.tartdate}`);
-    console.log(`End Date: ${this.state.enddate}`);
+    console.log(`Start Date: ${this.state.startDate}`);
+    console.log(`End Date: ${this.state.endDate}`);
     console.log(`Comments: ${this.state.comments}`);
     console.log(`File: ${this.state.file}`);
     console.log(`File Name: ${this.state.fileName}`);
@@ -139,21 +139,7 @@ export default class Create extends Component {
 
     console.log(response.data);
 
-    this.setState({
-      name: "",
-      phone: 0,
-      email: "",
-      duration: "",
-      rentPerMonth: 0,
-      location: "",
-      pets: false,
-      furnished: false,
-      startDate: "",
-      endDate: "",
-      comments: "",
-      file: "",
-      fileName: ""
-    });
+    this.props.history.push(`/listings/${response.data.id}`);
   }
   render() {
     return (
@@ -281,7 +267,7 @@ export default class Create extends Component {
             <input
               type="date"
               className="form-control"
-              value={this.state.startdate}
+              value={this.state.startDate}
               onChange={this.onChangeStartDate}
             />
           </div>
@@ -291,7 +277,7 @@ export default class Create extends Component {
             <input
               type="date"
               className="form-control"
-              value={this.state.enddate}
+              value={this.state.endDate}
               onChange={this.onChangeEndDate}
             />
           </div>

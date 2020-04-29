@@ -3,7 +3,8 @@ import {
   BrowserRouter as Router,
   Route,
   Link,
-  IndexRoute,
+  Switch,
+  NavLink
 } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Home from "./components/home";
@@ -13,6 +14,7 @@ import SignUp from "./components/signup";
 import Listings from "./components/listings";
 import Create from "./components/create";
 import Edit from "./components/edit";
+import Listing from "./components/listing";
 import logo from "./logo.png";
 
 class App extends Component {
@@ -39,41 +41,69 @@ class App extends Component {
             <div className="collapse nav-collapse show">
               <ul className="navbar-av mr-auto">
                 <li className="navbar-item">
-                  <Link to="/" className="nav-link">
+                  <NavLink
+                    to="/"
+                    exact
+                    activeStyle={{ color: "blue" }}
+                    className="nav-NavLink"
+                  >
                     Home
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="navbar-item">
-                  <Link to="/about" className="nav-link">
+                  <NavLink
+                    to="/about"
+                    exact
+                    activeStyle={{ color: "blue" }}
+                    className="nav-NavLink"
+                  >
                     About
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="navbar-item">
-                  <Link to="/signin" className="nav-link">
+                  <NavLink
+                    to="/signin"
+                    exact
+                    activeStyle={{ color: "blue" }}
+                    className="nav-NavLink"
+                  >
                     Sign In
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="navbar-item">
-                  <Link to="/signup" className="nav-link">
+                  <NavLink
+                    to="/signup"
+                    exact
+                    activeStyle={{ color: "blue" }}
+                    className="nav-NavLink"
+                  >
                     Sign Up
-                  </Link>
+                  </NavLink>
                 </li>
                 <li className="navbar-item">
-                  <Link to="/listings" className="nav-link">
+                  <NavLink
+                    to="/listings"
+                    exact
+                    activeStyle={{ color: "blue" }}
+                    className="nav-NavLink"
+                  >
                     Listings
-                  </Link>
+                  </NavLink>
                 </li>
               </ul>
             </div>
           </nav>
           <h2></h2>
-          <Route path="/" exact component={Home} />
-          <Route path="/about" component={About} />
-          <Route path="/signin" component={SignIn} />
-          <Route path="/signup" component={SignUp} />
-          <Route path="/listings" component={Listings} />
-          <Route path="/create" component={Create} />
-          <Route path="/edit" component={Edit} />
+          <Switch>
+            <Route path="/" exact component={Home} />
+            <Route path="/about" exact component={About} />
+            <Route path="/signin" exact component={SignIn} />
+            <Route path="/signup" exact component={SignUp} />
+            <Route path="/listings" exact component={Listings} />
+            <Route path="/listings/create" exact component={Create} />
+            <Route path="/listings/:id" exact component={Listing} />
+            <Route path="/listings/:id/edit" exact component={Edit} />
+          </Switch>
         </div>
       </Router>
     );

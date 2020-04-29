@@ -21,7 +21,7 @@ export default class MapListing extends Component {
             />
             {positions.map(listing => (
               //position is an attribute inside marker = var. the var has lat lng
-              <Marker position={listing}>
+              <Marker key={listing.id} position={listing}>
                 <Popup>{listing.location}</Popup>
               </Marker>
             ))}
