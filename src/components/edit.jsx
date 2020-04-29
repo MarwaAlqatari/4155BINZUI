@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { createCipher } from "crypto";
+import moment from "moment";
 
 export default class Edit extends Component {
   constructor(props) {
@@ -23,7 +23,7 @@ export default class Edit extends Component {
       phone: 0,
       email: "",
       duration: "",
-      rentPerMonth: 0,
+      rent: 0,
       location: "",
       pets: false,
       furnished: false,
@@ -104,7 +104,7 @@ export default class Edit extends Component {
     formData.append("phone", this.state.phone);
     formData.append("email", this.state.email);
     formData.append("duration", this.state.duration);
-    formData.append("rentPerMonth", this.state.rentPerMonth);
+    formData.append("rentPerMonth", this.state.rent);
     formData.append("location", this.state.location);
     formData.append("pets", this.state.pets === "Yes" ? true : false);
     formData.append("furnished", this.state.furnished === "Yes" ? true : false);
@@ -129,7 +129,7 @@ export default class Edit extends Component {
     console.log(`File Name: ${this.state.fileName}`);
 
     const response = await axios.put(
-      "http://localhost:8080/listings",
+      `http://localhost:8080/listings/${this.props.match.params.id}`,
       formData,
       {
         headers: {
@@ -139,22 +139,34 @@ export default class Edit extends Component {
     );
 
     console.log(response.data);
-
-    this.setState({
-      name: this.state.name,
-      phone: this.state.phone,
-      email: this.state.email,
-      duration: this.state.duration,
-      rentPerMonth: this.state.rentPerMonth,
-      location: this.state.location,
-      pets: this.state.pets,
-      furnished: this.state.furnished,
-      startDate: this.state.startDate,
-      endDate: this.state.endDate,
-      comments: this.state.comments,
-      file: this.state.file,
-      fileName: this.state.fileName
-    });
+    this.props.history.push(`/listings/${this.props.match.params.id}`);
+  }
+  componentDidMount() {
+    (async () => {
+      const listingDataResponse = await axios.get(
+        `http://localhost:8080/listings/${this.props.match.params.id}`
+      );
+      const listingsBack = listingDataResponse.data;
+      console.log(
+        `${listingsBack.pets}${listingsBack.furnished}${listingsBack.startDate}${listingsBack.endDate}`
+      );
+      //only way to update a state
+      this.setState({
+        name: listingsBack.name,
+        phone: listingsBack.phone,
+        email: listingsBack.email,
+        duration: listingsBack.duration,
+        rent: listingsBack.rentPerMonth,
+        location: listingsBack.location,
+        pets: listingsBack.pets ? "Yes" : "No",
+        furnished: listingsBack.furnished ? "Yes" : "No",
+        startDate: moment(listingsBack.startDate).format("YYYY-MM-DD"),
+        endDate: moment(listingsBack.endDate).format("YYYY-MM-DD"),
+        comments: listingsBack.comments,
+        file: listingsBack.file,
+        fileName: listingsBack.fileName
+      });
+    })();
   }
   render() {
     return (
@@ -282,7 +294,7 @@ export default class Edit extends Component {
             <input
               type="date"
               className="form-control"
-              value={this.state.startdate}
+              value={this.state.startDate}
               onChange={this.onChangeStartDate}
             />
           </div>
@@ -292,7 +304,7 @@ export default class Edit extends Component {
             <input
               type="date"
               className="form-control"
-              value={this.state.enddate}
+              value={this.state.endDate}
               onChange={this.onChangeEndDate}
             />
           </div>
@@ -308,7 +320,7 @@ export default class Edit extends Component {
           </div>
 
           <div className="form-group">
-            <label for="exampleFormControlFile1">Pictures</label>
+            <label htmlFor="exampleFormControlFile1">Pictures</label>
             <input
               type="file"
               className="form-control-file"

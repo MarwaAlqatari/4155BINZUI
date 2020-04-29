@@ -35,28 +35,67 @@ export default class Listings extends Component {
     })();
   }
 
+  deleteListing(id) {
+    axios
+      .delete(`http://localhost:8080/listings/${id}`)
+      .then(res => {
+        console.log("Listing successfully deleted!");
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+    this.setState({
+      listings: this.state.listings.filter(listing => listing.id !== id)
+    });
+  }
+
   render() {
     return (
       <div>
         <p>Welcome to Listings page</p>
-        <Link to="/create" className="nav-link">
+        <Link to="/listings/create" className="nav-link">
           Create Listing
         </Link>
         <div className="container-1 flexbox-item">
           <MapListing listings={this.state.listings} />
           <div className="container-2">
             <h2>Listings</h2>
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Title</th>
+                  <th scope="col">Duration</th>
+                  <th scope="col">Rent/Month</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
 
-            <ul>
-              {this.state.listings.map(listing => (
-                <li className="flexbox-item-2">
-                  {listing.name} {listing.duration} {listing.rentPerMonth}{" "}
-                  <Link to="/edit" className="nav-link">
-                    Edit
-                  </Link>
-                </li>
-              ))}
-            </ul>
+              <tbody>
+                {this.state.listings.map(listing => (
+                  <tr>
+                    <th scope="row">{listing.name}</th>
+                    <td>{listing.duration}</td>
+                    <td>$ {listing.rentPerMonth}</td>
+                    <td>
+                      <Link
+                        to={`/listings/${listing.id}/edit`}
+                        className="nav-link"
+                      >
+                        Edit
+                      </Link>
+
+                      <button onClick={() => this.deleteListing(listing.id)}>
+                        Delete
+                      </button>
+                      <Link to={`/listings/${listing.id}`} className="nav-link">
+                        See More
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
