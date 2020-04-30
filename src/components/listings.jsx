@@ -6,10 +6,24 @@ import "../styles/leaflet.css";
 import Geocode from "react-geocode";
 import axios from "axios";
 
-export default class Listings extends Component {
+//const Many = require("extends-classes");
+
+export default class Listings extends React.Component {
+  constructor() {
+    super();
+    this.star = { search: "" };
+    this.updateSearch = this.updateSearch.bind(this);
+  }
+
+  updateSearch(event) {
+    this.setState({ search: event.target.value });
+    //console.log(event.target.value);
+  }
+
   state = {
-    listings: []
+    listings: [],
   };
+
   componentDidMount() {
     Geocode.setApiKey("AIzaSyDJn7knufGIHSTgJiCnjPG0tej7nbv3Zrs");
     Geocode.setLanguage("en");
@@ -18,19 +32,19 @@ export default class Listings extends Component {
         "http://localhost:8080/listings"
       );
       const listingsBack = lisstingDataResponse.data;
-      const listingsWithCordsPromises = listingsBack.map(async listing => {
+      const listingsWithCordsPromises = listingsBack.map(async (listing) => {
         const response = await Geocode.fromAddress(listing.location);
         const { lat, lng } = response.results[0].geometry.location;
         return {
           ...listing,
           lat,
-          lng
+          lng,
         };
       });
       const listingsWithCords = await Promise.all(listingsWithCordsPromises);
       //only way to update a state
       this.setState({
-        listings: listingsWithCords
+        listings: listingsWithCords,
       });
     })();
   }
@@ -38,21 +52,30 @@ export default class Listings extends Component {
   deleteListing(id) {
     axios
       .delete(`http://localhost:8080/listings/${id}`)
-      .then(res => {
+      .then((res) => {
         console.log("Listing successfully deleted!");
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
 
     this.setState({
-      listings: this.state.listings.filter(listing => listing.id !== id)
+      listings: this.state.listings.filter((listing) => listing.id !== id),
     });
   }
 
   render() {
+    let filteredListings = this.state.listings.filter((listing) => {
+      return listing.name.indexOf(this.state.search) !== -1;
+    });
     return (
       <div>
+        <label htmlFor="filter">Search: &nbsp;</label>
+        <input
+          type="text"
+          //value={this.star.search}
+          onChange={this.updateSearch}
+        />
         <p>Welcome to Listings page</p>
         <Link to="/listings/create" className="nav-link">
           Create Listing
@@ -72,7 +95,15 @@ export default class Listings extends Component {
               </thead>
 
               <tbody>
-                {this.state.listings.map(listing => (
+                <div>
+                  <ul>
+                    {filteredListings.map((listing) => {
+                      return <listings listings={listing} key={listing.name} />;
+                    })}
+                  </ul>
+                </div>
+
+                {filteredListings.map((listing) => (
                   <tr>
                     <th scope="row">{listing.name}</th>
                     <td>{listing.duration}</td>
