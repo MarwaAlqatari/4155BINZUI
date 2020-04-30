@@ -70,7 +70,7 @@ export default class Listings extends React.Component {
     });
     return (
       <div>
-        <label htmlFor="filter">Search: &nbsp;</label>
+        <label>Search: &nbsp;</label>
         <input
           type="text"
           //value={this.star.search}
