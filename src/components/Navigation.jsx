@@ -10,23 +10,27 @@ export default class Navigation extends Component {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav>
             <NavLink className="d-inline p-2 bg-dark text-white" to="/">
+              B. I. N. Z.
+            </NavLink>
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+            <NavLink className="d-inline p-2 bg-dark text-white" to="/">
               Home
             </NavLink>
-
             <NavLink className="d-inline p-2 bg-dark text-white" to="/about">
               About
             </NavLink>
-
+            <NavLink className="d-inline p-2 bg-dark text-white" to="/listings">
+              Listings
+            </NavLink>
             <NavLink className="d-inline p-2 bg-dark text-white" to="/signin">
               Sign In
             </NavLink>
-
             <NavLink className="d-inline p-2 bg-dark text-white" to="/signup">
               Sign Up
-            </NavLink>
-
-            <NavLink className="d-inline p-2 bg-dark text-white" to="/listings">
-              Listings
             </NavLink>
           </Nav>
         </Navbar.Collapse>

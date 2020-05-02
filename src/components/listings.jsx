@@ -5,19 +5,16 @@ import MapListing from "./map";
 import "../styles/leaflet.css";
 import Geocode from "react-geocode";
 import axios from "axios";
-
-//const Many = require("extends-classes");
+import { Button } from "react-bootstrap";
 
 export default class Listings extends React.Component {
   constructor() {
     super();
-    this.star = { search: "" };
     this.updateSearch = this.updateSearch.bind(this);
   }
 
   updateSearch(event) {
     this.setState({ search: event.target.value });
-    //console.log(event.target.value);
   }
 
   state = {
@@ -68,14 +65,11 @@ export default class Listings extends React.Component {
     let filteredListings = this.state.listings.filter((listing) => {
       return listing.name.indexOf(this.state.search) !== -1;
     });
+
     return (
       <div>
         <label>Search: &nbsp;</label>
-        <input
-          type="text"
-          //value={this.star.search}
-          onChange={this.updateSearch}
-        />
+        <input type="text" placeholder="search" onChange={this.updateSearch} />
         <p>Welcome to Listings page</p>
         <Link to="/listings/create" className="nav-link">
           Create Listing
@@ -95,14 +89,6 @@ export default class Listings extends React.Component {
               </thead>
 
               <tbody>
-                <div>
-                  <ul>
-                    {filteredListings.map((listing) => {
-                      return <listings listings={listing} key={listing.name} />;
-                    })}
-                  </ul>
-                </div>
-
                 {filteredListings.map((listing) => (
                   <tr>
                     <th scope="row">{listing.name}</th>
@@ -113,15 +99,18 @@ export default class Listings extends React.Component {
                         to={`/listings/${listing.id}/edit`}
                         className="nav-link"
                       >
-                        Edit
+                        <button type="button">Edit</button>
+                      </Link>
+                      <Link to={`/listings/${listing.id}`} className="nav-link">
+                        <button type="button">See More</button>
                       </Link>
 
-                      <button onClick={() => this.deleteListing(listing.id)}>
+                      <Button
+                        style={{ margin: 15 }}
+                        onClick={() => this.deleteListing(listing.id)}
+                      >
                         Delete
-                      </button>
-                      <Link to={`/listings/${listing.id}`} className="nav-link">
-                        See More
-                      </Link>
+                      </Button>
                     </td>
                   </tr>
                 ))}

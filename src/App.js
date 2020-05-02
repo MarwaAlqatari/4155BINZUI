@@ -23,16 +23,9 @@ class App extends Component {
     return (
       <Router>
         <div className="container1">
-          <h1 align="middle" style={{ backgroundColor: "dark" }}>
-            <img
-              src={logo}
-              width="50"
-              height="50"
-              alt="CodingTheSmartWay.com"
-            />{" "}
-            <font color="black">BINZ: LET US LEASE THE WAY</font>
-          </h1>
+          <h1 align="middle" style={{ backgroundColor: "dark" }}></h1>
           <Navigation />
+
           <h2></h2>
 
           <Switch>
