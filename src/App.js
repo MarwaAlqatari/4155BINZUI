@@ -15,6 +15,7 @@ import Listings from "./components/listings";
 import Create from "./components/create";
 import Edit from "./components/edit";
 import Listing from "./components/listing";
+import Profile from "./components/profile";
 import logo from "./logo.png";
 
 class App extends Component {
@@ -90,6 +91,16 @@ class App extends Component {
                     Listings
                   </NavLink>
                 </li>
+                <li className="navbar-item">
+                  <NavLink
+                    to="/profile"
+                    exact
+                    activeStyle={{ color: "blue" }}
+                    className="nav-NavLink"
+                  >
+                    Profile
+                  </NavLink>
+                </li>
               </ul>
             </div>
           </nav>
@@ -103,6 +114,7 @@ class App extends Component {
             <Route path="/listings/create" exact component={Create} />
             <Route path="/listings/:id" exact component={Listing} />
             <Route path="/listings/:id/edit" exact component={Edit} />
+            <Route path="/profile" exact component={Profile} />
           </Switch>
         </div>
       </Router>
