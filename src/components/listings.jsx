@@ -5,11 +5,23 @@ import MapListing from "./map";
 import "../styles/leaflet.css";
 import Geocode from "react-geocode";
 import axios from "axios";
+import { Button } from "react-bootstrap";
 
-export default class Listings extends Component {
+export default class Listings extends React.Component {
+  constructor() {
+    super();
+    this.updateSearch = this.updateSearch.bind(this);
+  }
+
+  updateSearch(event) {
+    this.setState({ search: event.target.value });
+  }
+
   state = {
-    listings: []
+    listings: [],
+    search: ""
   };
+
   componentDidMount() {
     Geocode.setApiKey("AIzaSyDJn7knufGIHSTgJiCnjPG0tej7nbv3Zrs");
     Geocode.setLanguage("en");
@@ -51,8 +63,17 @@ export default class Listings extends Component {
   }
 
   render() {
+    let filteredListings = this.state.listings.filter(listing => {
+      return (
+        listing.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !==
+        -1
+      );
+    });
+
     return (
       <div>
+        <label>Search: &nbsp;</label>
+        <input type="text" placeholder="search" onChange={this.updateSearch} />
         <p>Welcome to Listings page</p>
         <Link to="/listings/create" className="nav-link">
           Create Listing
@@ -61,8 +82,8 @@ export default class Listings extends Component {
           <MapListing listings={this.state.listings} />
           <div className="container-2">
             <h2>Listings</h2>
-            <table class="table">
-              <thead class="thead-dark">
+            <table className="table">
+              <thead className="thead-dark">
                 <tr>
                   <th scope="col">Title</th>
                   <th scope="col">Duration</th>
@@ -72,8 +93,8 @@ export default class Listings extends Component {
               </thead>
 
               <tbody>
-                {this.state.listings.map(listing => (
-                  <tr>
+                {filteredListings.map(listing => (
+                  <tr key={listing.id}>
                     <th scope="row">{listing.name}</th>
                     <td>{listing.duration}</td>
                     <td>$ {listing.rentPerMonth}</td>
@@ -82,15 +103,18 @@ export default class Listings extends Component {
                         to={`/listings/${listing.id}/edit`}
                         className="nav-link"
                       >
-                        Edit
+                        <button type="button">Edit</button>
+                      </Link>
+                      <Link to={`/listings/${listing.id}`} className="nav-link">
+                        <button type="button">See More</button>
                       </Link>
 
-                      <button onClick={() => this.deleteListing(listing.id)}>
+                      <Button
+                        style={{ margin: 15 }}
+                        onClick={() => this.deleteListing(listing.id)}
+                      >
                         Delete
-                      </button>
-                      <Link to={`/listings/${listing.id}`} className="nav-link">
-                        See More
-                      </Link>
+                      </Button>
                     </td>
                   </tr>
                 ))}
