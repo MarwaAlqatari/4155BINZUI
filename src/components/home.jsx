@@ -12,13 +12,13 @@ export default class Home extends Component {
       position: "absolute",
       top: "50%",
       left: "50%",
-      color: "purple",
+      color: "purple"
     };
     return (
       <div style={{ width: "auto" }}>
         <Image
           style={background}
-          responsive
+          responsive="true"
           src={require("./home.jpg")}
           width="1348px"
           height="600px"

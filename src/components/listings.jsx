@@ -19,6 +19,7 @@ export default class Listings extends React.Component {
 
   state = {
     listings: [],
+    search: ""
   };
 
   componentDidMount() {
@@ -29,19 +30,19 @@ export default class Listings extends React.Component {
         "http://localhost:8080/listings"
       );
       const listingsBack = lisstingDataResponse.data;
-      const listingsWithCordsPromises = listingsBack.map(async (listing) => {
+      const listingsWithCordsPromises = listingsBack.map(async listing => {
         const response = await Geocode.fromAddress(listing.location);
         const { lat, lng } = response.results[0].geometry.location;
         return {
           ...listing,
           lat,
-          lng,
+          lng
         };
       });
       const listingsWithCords = await Promise.all(listingsWithCordsPromises);
       //only way to update a state
       this.setState({
-        listings: listingsWithCords,
+        listings: listingsWithCords
       });
     })();
   }
@@ -49,21 +50,24 @@ export default class Listings extends React.Component {
   deleteListing(id) {
     axios
       .delete(`http://localhost:8080/listings/${id}`)
-      .then((res) => {
+      .then(res => {
         console.log("Listing successfully deleted!");
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
 
     this.setState({
-      listings: this.state.listings.filter((listing) => listing.id !== id),
+      listings: this.state.listings.filter(listing => listing.id !== id)
     });
   }
 
   render() {
-    let filteredListings = this.state.listings.filter((listing) => {
-      return listing.name.indexOf(this.state.search) !== -1;
+    let filteredListings = this.state.listings.filter(listing => {
+      return (
+        listing.name.toLowerCase().indexOf(this.state.search.toLowerCase()) !==
+        -1
+      );
     });
 
     return (
@@ -78,8 +82,8 @@ export default class Listings extends React.Component {
           <MapListing listings={this.state.listings} />
           <div className="container-2">
             <h2>Listings</h2>
-            <table class="table">
-              <thead class="thead-dark">
+            <table className="table">
+              <thead className="thead-dark">
                 <tr>
                   <th scope="col">Title</th>
                   <th scope="col">Duration</th>
@@ -89,8 +93,8 @@ export default class Listings extends React.Component {
               </thead>
 
               <tbody>
-                {filteredListings.map((listing) => (
-                  <tr>
+                {filteredListings.map(listing => (
+                  <tr key={listing.id}>
                     <th scope="row">{listing.name}</th>
                     <td>{listing.duration}</td>
                     <td>$ {listing.rentPerMonth}</td>
