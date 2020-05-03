@@ -16,7 +16,6 @@ import Profile from "./components/profile";
 import Create from "./components/create";
 import Edit from "./components/edit";
 import Listing from "./components/listing";
-import Profile from "./components/profile";
 import logo from "./logo.png";
 import Navigation from "./components/Navigation";
 

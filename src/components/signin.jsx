@@ -5,15 +5,15 @@ export default class SignIn extends Component {
   render() {
     return (
       <div style={{ marginTop: 20 }}>
-        <h3>Sign Ip</h3>
+        <h3>Sign In</h3>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
             <label>Email: </label>
             <input
               type="text"
               className="form-control"
-              value={this.state.email}
-              onChange={this.onChangeEmail}
+              //value={this.state.email}
+              //onChange={this.onChangeEmail}
             />
           </div>
 
@@ -22,14 +22,14 @@ export default class SignIn extends Component {
             <input
               type="text"
               className="form-control"
-              value={this.state.password}
-              onChange={this.onChangePassword}
+              //value={this.state.password}
+              //onChange={this.onChangePassword}
             />
           </div>
 
           <div className="form-group">
           <button
-              onClick={this.onNavigateUsers}
+              //onClick={this.onNavigateUsers}
               className="btn btn-primary"
             >
               Sign In
