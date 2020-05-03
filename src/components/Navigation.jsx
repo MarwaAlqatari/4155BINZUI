@@ -32,6 +32,9 @@ export default class Navigation extends Component {
             <NavLink className="d-inline p-2 bg-dark text-white" to="/signup">
               Sign Up
             </NavLink>
+            <NavLink className="d-inline p-2 bg-dark text-white" to="/profile">
+              Profile
+            </NavLink>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
