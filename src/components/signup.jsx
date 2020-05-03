@@ -82,11 +82,11 @@ export default class SignUp extends Component {
           </div>
 
           <div className="form-group">
-          <button
+            <button
               onClick={this.onNavigateUsers}
               className="btn btn-primary"
             >
-              Sign In
+              Sign Up
             </button>
           </div>
 
