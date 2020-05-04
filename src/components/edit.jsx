@@ -204,15 +204,7 @@ export default class Edit extends Component {
             />
           </div>
 
-          <div className="form-group">
-            <label>Duration: </label>
-            <input
-              type="text"
-              className="form-control"
-              value={this.state.duration}
-              onChange={this.onChangeDuration}
-            />
-          </div>
+          
 
           <div className="form-group">
             <label>Rent Per Month: </label>
