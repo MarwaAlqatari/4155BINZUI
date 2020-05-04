@@ -5,4 +5,4 @@ How to Launch the Frontend Project:
 ### `npm install`
 3. Lastly, run 'npm statrt' to start running the frontend on 'http://localhost:3000/'
 ### `npm start`
-4. type in 'http://localhost:3000/' in browser, this should show up our project that you can navigate through.
+4. Web app will open automatically in web browser at 'http://localhost:3000/', this should show up our project that you can navigate through.

@@ -1,8 +1,13 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
 
-export default class Navigation extends Component {
+class Navigation extends Component {
+  handleLogout = () => {
+    this.props.onLogout();
+    this.props.history.push("/signin");
+  };
+
   render() {
     return (
       <Navbar bg="dark" expands="lg">
@@ -26,15 +31,43 @@ export default class Navigation extends Component {
             <NavLink className="d-inline p-2 bg-dark text-white" to="/listings">
               Listings
             </NavLink>
-            <NavLink className="d-inline p-2 bg-dark text-white" to="/signin">
-              Sign In
-            </NavLink>
-            <NavLink className="d-inline p-2 bg-dark text-white" to="/signup">
-              Sign Up
-            </NavLink>
+            {this.props.loggedIn ? (
+              <>
+                <NavLink
+                  className="d-inline p-2 bg-dark text-white"
+                  to="/profile"
+                >
+                  Profile
+                </NavLink>
+                <a
+                  className="d-inline p-2 bg-dark text-white"
+                  style={{ cursor: "pointer" }}
+                  onClick={this.handleLogout}
+                >
+                  Sign Out
+                </a>
+              </>
+            ) : (
+              <>
+                <NavLink
+                  className="d-inline p-2 bg-dark text-white"
+                  to="/signin"
+                >
+                  Sign In
+                </NavLink>
+                <NavLink
+                  className="d-inline p-2 bg-dark text-white"
+                  to="/signup"
+                >
+                  Sign Up
+                </NavLink>
+              </>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Navbar>
     );
   }
 }
+
+export default withRouter(Navigation);

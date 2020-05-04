@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { render } from "@testing-library/react";
 
 export default class Create extends Component {
   constructor(props) {
@@ -32,6 +33,12 @@ export default class Create extends Component {
       file: "",
       fileName: ""
     };
+  }
+
+  componentDidMount() {
+    if (!this.props.loggedIn) {
+      this.props.history.push("/signin");
+    }
   }
 
   onChangeName(e) {
@@ -111,6 +118,7 @@ export default class Create extends Component {
     formData.append("endDate", this.state.endDate);
     formData.append("comments", this.state.comments);
     formData.append("listingImage", this.state.file);
+    formData.append("token", localStorage.getItem("token"));
 
     console.log("Form submitted:");
     console.log(`Name: ${this.state.name}`);
@@ -118,7 +126,7 @@ export default class Create extends Component {
     console.log(`Email: ${this.state.email}`);
     console.log(`Duration: ${this.state.duration}`);
     console.log(`Rent Per Month: ${this.state.rent}`);
-    console.log(`Location: ${this.state.ocation}`);
+    console.log(`Location: ${this.state.location}`);
     console.log(`Peys: ${this.state.pets}`);
     console.log(`Furnished: ${this.state.furnished}`);
     console.log(`Start Date: ${this.state.startDate}`);
@@ -150,6 +158,7 @@ export default class Create extends Component {
             <label>Name: </label>
             <input
               type="text"
+              required
               className="form-control"
               value={this.state.name}
               onChange={this.onChangeName}
@@ -160,6 +169,7 @@ export default class Create extends Component {
             <label>Phone: </label>
             <input
               type="text"
+              required
               className="form-control"
               value={this.state.phone}
               onChange={this.onChangePhone}
@@ -170,6 +180,7 @@ export default class Create extends Component {
             <label>Email: </label>
             <input
               type="text"
+              required
               className="form-control"
               value={this.state.email}
               onChange={this.onChangeEmail}
@@ -177,19 +188,10 @@ export default class Create extends Component {
           </div>
 
           <div className="form-group">
-            <label>Duration: </label>
-            <input
-              type="text"
-              className="form-control"
-              value={this.state.duration}
-              onChange={this.onChangeDuration}
-            />
-          </div>
-
-          <div className="form-group">
             <label>Rent Per Month: </label>
             <input
               type="text"
+              required
               className="form-control"
               value={this.state.rent}
               onChange={this.onChangeRent}
@@ -200,6 +202,7 @@ export default class Create extends Component {
             <label>Location: </label>
             <input
               type="text"
+              required
               className="form-control"
               value={this.state.location}
               onChange={this.onChangeLocation}
@@ -212,6 +215,7 @@ export default class Create extends Component {
               <input
                 className="form-check-input"
                 type="radio"
+                required
                 name="petsOptions"
                 id="noPets"
                 value="No"
@@ -224,6 +228,7 @@ export default class Create extends Component {
               <input
                 className="form-check-input"
                 type="radio"
+                required
                 name="petsOptions"
                 id="yesPets"
                 value="Yes"
@@ -240,6 +245,7 @@ export default class Create extends Component {
               <input
                 className="form-check-input"
                 type="radio"
+                required
                 name="furnishedOptions"
                 id="Furnished"
                 value="Yes"
@@ -252,6 +258,7 @@ export default class Create extends Component {
               <input
                 className="form-check-input"
                 type="radio"
+                required
                 name="furnishedOptions"
                 id="NotFurnished"
                 value="No"
@@ -266,6 +273,7 @@ export default class Create extends Component {
             <label>Start Date: </label>
             <input
               type="date"
+              required
               className="form-control"
               value={this.state.startDate}
               onChange={this.onChangeStartDate}
@@ -276,6 +284,7 @@ export default class Create extends Component {
             <label>End Date: </label>
             <input
               type="date"
+              required
               className="form-control"
               value={this.state.endDate}
               onChange={this.onChangeEndDate}
@@ -286,6 +295,7 @@ export default class Create extends Component {
             <label>Comments: </label>
             <input
               type="text"
+              required
               className="form-control"
               value={this.state.comments}
               onChange={this.onChangeComments}
@@ -293,9 +303,10 @@ export default class Create extends Component {
           </div>
 
           <div className="form-group">
-            <label for="exampleFormControlFile1">Pictures</label>
+            <label htmlFor="exampleFormControlFile1">Pictures</label>
             <input
               type="file"
+              required
               className="form-control-file"
               id="exampleFormControlFile1"
               onChange={this.onChangeFile}
