@@ -112,6 +112,7 @@ export default class Edit extends Component {
     formData.append("endDate", this.state.endDate);
     formData.append("comments", this.state.comments);
     formData.append("listingImage", this.state.file);
+    formData.append('token', localStorage.getItem('token'));
 
     console.log("Form submitted:");
     console.log(`Name: ${this.state.name}`);

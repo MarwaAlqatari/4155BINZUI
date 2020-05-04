@@ -31,7 +31,12 @@ export default class Listings extends React.Component {
       );
       const listingsBack = lisstingDataResponse.data;
       const listingsWithCordsPromises = listingsBack.map(async listing => {
-        const response = await Geocode.fromAddress(listing.location);
+        let response;
+        try {
+          response = await Geocode.fromAddress(listing.location);
+        } catch (err) {
+          return { ...listing, lat: null, lng: null };
+        }
         const { lat, lng } = response.results[0].geometry.location;
         return {
           ...listing,
@@ -45,21 +50,6 @@ export default class Listings extends React.Component {
         listings: listingsWithCords
       });
     })();
-  }
-
-  deleteListing(id) {
-    axios
-      .delete(`http://localhost:8080/listings/${id}`)
-      .then(res => {
-        console.log("Listing successfully deleted!");
-      })
-      .catch(error => {
-        console.log(error);
-      });
-
-    this.setState({
-      listings: this.state.listings.filter(listing => listing.id !== id)
-    });
   }
 
   render() {
@@ -99,22 +89,9 @@ export default class Listings extends React.Component {
                     <td>{listing.duration}</td>
                     <td>$ {listing.rentPerMonth}</td>
                     <td>
-                      <Link
-                        to={`/listings/${listing.id}/edit`}
-                        className="nav-link"
-                      >
-                        <button type="button">Edit</button>
-                      </Link>
                       <Link to={`/listings/${listing.id}`} className="nav-link">
                         <button type="button">See More</button>
                       </Link>
-
-                      <Button
-                        style={{ margin: 15 }}
-                        onClick={() => this.deleteListing(listing.id)}
-                      >
-                        Delete
-                      </Button>
                     </td>
                   </tr>
                 ))}
